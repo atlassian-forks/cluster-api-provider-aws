@@ -38,6 +38,7 @@ func (src *AWSMachinePool) ConvertTo(dstRaw conversion.Hub) error {
 		return err
 	}
 
+	dst.Spec.NewInstancesProtectedFromScaleIn = restored.Spec.NewInstancesProtectedFromScaleIn
 	if restored.Spec.SuspendProcesses != nil {
 		dst.Spec.SuspendProcesses = restored.Spec.SuspendProcesses
 	}
