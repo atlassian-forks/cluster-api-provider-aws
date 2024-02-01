@@ -20799,6 +20799,18 @@ SuspendProcessesTypes
 If a process is removed from this list it will automatically be resumed.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>newInstancesProtectedFromScaleIn</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Enable or disable instance scale-in protection</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -21040,6 +21052,18 @@ SuspendProcessesTypes
 <td>
 <p>SuspendProcesses defines a list of processes to suspend for the given ASG. This is constantly reconciled.
 If a process is removed from this list it will automatically be resumed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>newInstancesProtectedFromScaleIn</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Enable or disable instance scale-in protection</p>
 </td>
 </tr>
 </tbody>
@@ -22015,6 +22039,16 @@ Kubernetes meta/v1.Duration
 <tr>
 <td>
 <code>capacityRebalance</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>newInstancesProtectedFromScaleIn</code><br/>
 <em>
 bool
 </em>

@@ -141,12 +141,13 @@ func TestServiceSDKToAutoScalingGroup(t *testing.T) {
 		{
 			name: "valid input - all required fields filled",
 			input: &autoscaling.Group{
-				AutoScalingGroupARN:  aws.String("test-id"),
-				AutoScalingGroupName: aws.String("test-name"),
-				DesiredCapacity:      aws.Int64(1234),
-				MaxSize:              aws.Int64(1234),
-				MinSize:              aws.Int64(1234),
-				CapacityRebalance:    aws.Bool(true),
+				AutoScalingGroupARN:              aws.String("test-id"),
+				AutoScalingGroupName:             aws.String("test-name"),
+				DesiredCapacity:                  aws.Int64(1234),
+				MaxSize:                          aws.Int64(1234),
+				MinSize:                          aws.Int64(1234),
+				CapacityRebalance:                aws.Bool(true),
+				NewInstancesProtectedFromScaleIn: aws.Bool(true),
 				MixedInstancesPolicy: &autoscaling.MixedInstancesPolicy{
 					InstancesDistribution: &autoscaling.InstancesDistribution{
 						OnDemandAllocationStrategy:          aws.String("prioritized"),
@@ -165,12 +166,13 @@ func TestServiceSDKToAutoScalingGroup(t *testing.T) {
 				},
 			},
 			want: &expinfrav1.AutoScalingGroup{
-				ID:                "test-id",
-				Name:              "test-name",
-				DesiredCapacity:   aws.Int32(1234),
-				MaxSize:           int32(1234),
-				MinSize:           int32(1234),
-				CapacityRebalance: true,
+				ID:                               "test-id",
+				Name:                             "test-name",
+				DesiredCapacity:                  aws.Int32(1234),
+				MaxSize:                          int32(1234),
+				MinSize:                          int32(1234),
+				CapacityRebalance:                true,
+				NewInstancesProtectedFromScaleIn: true,
 				MixedInstancesPolicy: &expinfrav1.MixedInstancesPolicy{
 					InstancesDistribution: &expinfrav1.InstancesDistribution{
 						OnDemandAllocationStrategy:          expinfrav1.OnDemandAllocationStrategyPrioritized,
@@ -211,12 +213,13 @@ func TestServiceSDKToAutoScalingGroup(t *testing.T) {
 		{
 			name: "valid input - all fields filled",
 			input: &autoscaling.Group{
-				AutoScalingGroupARN:  aws.String("test-id"),
-				AutoScalingGroupName: aws.String("test-name"),
-				DesiredCapacity:      aws.Int64(1234),
-				MaxSize:              aws.Int64(1234),
-				MinSize:              aws.Int64(1234),
-				CapacityRebalance:    aws.Bool(true),
+				AutoScalingGroupARN:              aws.String("test-id"),
+				AutoScalingGroupName:             aws.String("test-name"),
+				DesiredCapacity:                  aws.Int64(1234),
+				MaxSize:                          aws.Int64(1234),
+				MinSize:                          aws.Int64(1234),
+				CapacityRebalance:                aws.Bool(true),
+				NewInstancesProtectedFromScaleIn: aws.Bool(true),
 				MixedInstancesPolicy: &autoscaling.MixedInstancesPolicy{
 					InstancesDistribution: &autoscaling.InstancesDistribution{
 						OnDemandAllocationStrategy:          aws.String("prioritized"),
@@ -249,12 +252,13 @@ func TestServiceSDKToAutoScalingGroup(t *testing.T) {
 				},
 			},
 			want: &expinfrav1.AutoScalingGroup{
-				ID:                "test-id",
-				Name:              "test-name",
-				DesiredCapacity:   aws.Int32(1234),
-				MaxSize:           int32(1234),
-				MinSize:           int32(1234),
-				CapacityRebalance: true,
+				ID:                               "test-id",
+				Name:                             "test-name",
+				DesiredCapacity:                  aws.Int32(1234),
+				MaxSize:                          int32(1234),
+				MinSize:                          int32(1234),
+				CapacityRebalance:                true,
+				NewInstancesProtectedFromScaleIn: true,
 				MixedInstancesPolicy: &expinfrav1.MixedInstancesPolicy{
 					InstancesDistribution: &expinfrav1.InstancesDistribution{
 						OnDemandAllocationStrategy:          expinfrav1.OnDemandAllocationStrategyPrioritized,
@@ -285,34 +289,37 @@ func TestServiceSDKToAutoScalingGroup(t *testing.T) {
 		{
 			name: "valid input - without mixedInstancesPolicy",
 			input: &autoscaling.Group{
-				AutoScalingGroupARN:  aws.String("test-id"),
-				AutoScalingGroupName: aws.String("test-name"),
-				DesiredCapacity:      aws.Int64(1234),
-				MaxSize:              aws.Int64(1234),
-				MinSize:              aws.Int64(1234),
-				CapacityRebalance:    aws.Bool(true),
-				MixedInstancesPolicy: nil,
+				AutoScalingGroupARN:              aws.String("test-id"),
+				AutoScalingGroupName:             aws.String("test-name"),
+				DesiredCapacity:                  aws.Int64(1234),
+				MaxSize:                          aws.Int64(1234),
+				MinSize:                          aws.Int64(1234),
+				CapacityRebalance:                aws.Bool(true),
+				NewInstancesProtectedFromScaleIn: aws.Bool(true),
+				MixedInstancesPolicy:             nil,
 			},
 			want: &expinfrav1.AutoScalingGroup{
-				ID:                   "test-id",
-				Name:                 "test-name",
-				DesiredCapacity:      aws.Int32(1234),
-				MaxSize:              int32(1234),
-				MinSize:              int32(1234),
-				CapacityRebalance:    true,
-				MixedInstancesPolicy: nil,
+				ID:                               "test-id",
+				Name:                             "test-name",
+				DesiredCapacity:                  aws.Int32(1234),
+				MaxSize:                          int32(1234),
+				MinSize:                          int32(1234),
+				CapacityRebalance:                true,
+				NewInstancesProtectedFromScaleIn: true,
+				MixedInstancesPolicy:             nil,
 			},
 			wantErr: false,
 		},
 		{
 			name: "invalid input - incorrect on-demand allocation strategy",
 			input: &autoscaling.Group{
-				AutoScalingGroupARN:  aws.String("test-id"),
-				AutoScalingGroupName: aws.String("test-name"),
-				DesiredCapacity:      aws.Int64(1234),
-				MaxSize:              aws.Int64(1234),
-				MinSize:              aws.Int64(1234),
-				CapacityRebalance:    aws.Bool(true),
+				AutoScalingGroupARN:              aws.String("test-id"),
+				AutoScalingGroupName:             aws.String("test-name"),
+				DesiredCapacity:                  aws.Int64(1234),
+				MaxSize:                          aws.Int64(1234),
+				MinSize:                          aws.Int64(1234),
+				CapacityRebalance:                aws.Bool(true),
+				NewInstancesProtectedFromScaleIn: aws.Bool(true),
 				MixedInstancesPolicy: &autoscaling.MixedInstancesPolicy{
 					InstancesDistribution: &autoscaling.InstancesDistribution{
 						OnDemandAllocationStrategy:          aws.String("prioritized"),
@@ -335,12 +342,13 @@ func TestServiceSDKToAutoScalingGroup(t *testing.T) {
 		{
 			name: "invalid input - incorrect spot allocation strategy",
 			input: &autoscaling.Group{
-				AutoScalingGroupARN:  aws.String("test-id"),
-				AutoScalingGroupName: aws.String("test-name"),
-				DesiredCapacity:      aws.Int64(1234),
-				MaxSize:              aws.Int64(1234),
-				MinSize:              aws.Int64(1234),
-				CapacityRebalance:    aws.Bool(true),
+				AutoScalingGroupARN:              aws.String("test-id"),
+				AutoScalingGroupName:             aws.String("test-name"),
+				DesiredCapacity:                  aws.Int64(1234),
+				MaxSize:                          aws.Int64(1234),
+				MinSize:                          aws.Int64(1234),
+				CapacityRebalance:                aws.Bool(true),
+				NewInstancesProtectedFromScaleIn: aws.Bool(true),
 				MixedInstancesPolicy: &autoscaling.MixedInstancesPolicy{
 					InstancesDistribution: &autoscaling.InstancesDistribution{
 						OnDemandAllocationStrategy:          aws.String("prioritized"),
@@ -487,9 +495,10 @@ func TestServiceCreateASG(t *testing.T) {
 			wantASG:               false,
 			expect: func(m *mock_autoscalingiface.MockAutoScalingAPIMockRecorder) {
 				expected := &autoscaling.CreateAutoScalingGroupInput{
-					AutoScalingGroupName: aws.String("create-asg-success"),
-					CapacityRebalance:    aws.Bool(false),
-					DefaultCooldown:      aws.Int64(0),
+					AutoScalingGroupName:             aws.String("create-asg-success"),
+					CapacityRebalance:                aws.Bool(false),
+					NewInstancesProtectedFromScaleIn: aws.Bool(false),
+					DefaultCooldown:                  aws.Int64(0),
 					MixedInstancesPolicy: &autoscaling.MixedInstancesPolicy{
 						InstancesDistribution: &autoscaling.InstancesDistribution{
 							OnDemandAllocationStrategy:          aws.String("prioritized"),
