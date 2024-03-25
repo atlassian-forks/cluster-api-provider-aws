@@ -1117,6 +1117,32 @@ func TestDiffASG(t *testing.T) {
 			want: true,
 		},
 		{
+			name: "newInstancesProtectedFromScaleIn != asg.newInstancesProtectedFromScaleIn",
+			args: args{
+				machinePoolScope: &scope.MachinePoolScope{
+					MachinePool: &expclusterv1.MachinePool{
+						Spec: expclusterv1.MachinePoolSpec{
+							Replicas: pointer.Int32(1),
+						},
+					},
+					AWSMachinePool: &expinfrav1.AWSMachinePool{
+						Spec: expinfrav1.AWSMachinePoolSpec{
+							MaxSize:                          2,
+							MinSize:                          0,
+							NewInstancesProtectedFromScaleIn: false,
+						},
+					},
+				},
+				existingASG: &expinfrav1.AutoScalingGroup{
+					DesiredCapacity:                  pointer.Int32(1),
+					MaxSize:                          2,
+					MinSize:                          0,
+					NewInstancesProtectedFromScaleIn: true,
+				},
+			},
+			want: true,
+		},
+		{
 			name: "all matches",
 			args: args{
 				machinePoolScope: &scope.MachinePoolScope{
@@ -1127,9 +1153,10 @@ func TestDiffASG(t *testing.T) {
 					},
 					AWSMachinePool: &expinfrav1.AWSMachinePool{
 						Spec: expinfrav1.AWSMachinePoolSpec{
-							MaxSize:           2,
-							MinSize:           0,
-							CapacityRebalance: true,
+							MaxSize:                          2,
+							MinSize:                          0,
+							CapacityRebalance:                true,
+							NewInstancesProtectedFromScaleIn: false,
 							MixedInstancesPolicy: &expinfrav1.MixedInstancesPolicy{
 								InstancesDistribution: &expinfrav1.InstancesDistribution{
 									OnDemandAllocationStrategy: expinfrav1.OnDemandAllocationStrategyPrioritized,
@@ -1140,10 +1167,11 @@ func TestDiffASG(t *testing.T) {
 					},
 				},
 				existingASG: &expinfrav1.AutoScalingGroup{
-					DesiredCapacity:   ptr.To[int32](1),
-					MaxSize:           2,
-					MinSize:           0,
-					CapacityRebalance: true,
+					DesiredCapacity:                  ptr.To[int32](1),
+					MaxSize:                          2,
+					MinSize:                          0,
+					CapacityRebalance:                true,
+					NewInstancesProtectedFromScaleIn: false,
 					MixedInstancesPolicy: &expinfrav1.MixedInstancesPolicy{
 						InstancesDistribution: &expinfrav1.InstancesDistribution{
 							OnDemandAllocationStrategy: expinfrav1.OnDemandAllocationStrategyPrioritized,

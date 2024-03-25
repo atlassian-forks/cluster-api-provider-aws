@@ -559,6 +559,7 @@ func autoConvert_v1beta2_AWSMachinePoolSpec_To_v1beta1_AWSMachinePoolSpec(in *v1
 	}
 	out.CapacityRebalance = in.CapacityRebalance
 	// WARNING: in.SuspendProcesses requires manual conversion: does not exist in peer-type
+	// WARNING: in.NewInstancesProtectedFromScaleIn requires manual conversion: does not exist in peer-type
 	return nil
 }
 
@@ -799,6 +800,7 @@ func autoConvert_v1beta2_AutoScalingGroup_To_v1beta1_AutoScalingGroup(in *v1beta
 	out.DefaultCoolDown = in.DefaultCoolDown
 	// WARNING: in.DefaultInstanceWarmup requires manual conversion: does not exist in peer-type
 	out.CapacityRebalance = in.CapacityRebalance
+	// WARNING: in.NewInstancesProtectedFromScaleIn requires manual conversion: does not exist in peer-type
 	out.MixedInstancesPolicy = (*MixedInstancesPolicy)(unsafe.Pointer(in.MixedInstancesPolicy))
 	out.Status = ASGStatus(in.Status)
 	out.Instances = *(*[]apiv1beta2.Instance)(unsafe.Pointer(&in.Instances))

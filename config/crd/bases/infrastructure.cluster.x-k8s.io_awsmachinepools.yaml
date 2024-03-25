@@ -851,6 +851,9 @@ spec:
                       type: object
                     type: array
                 type: object
+              newInstancesProtectedFromScaleIn:
+                description: Enable or disable instance scale-in protection
+                type: boolean
               providerID:
                 description: ProviderID is the ARN of the associated ASG
                 type: string

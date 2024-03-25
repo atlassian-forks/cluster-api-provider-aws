@@ -537,6 +537,7 @@ func diffASG(machinePoolScope *scope.MachinePoolScope, existingASG *expinfrav1.A
 	detectedAWSMachinePoolSpec.MaxSize = existingASG.MaxSize
 	detectedAWSMachinePoolSpec.MinSize = existingASG.MinSize
 	detectedAWSMachinePoolSpec.CapacityRebalance = existingASG.CapacityRebalance
+	detectedAWSMachinePoolSpec.NewInstancesProtectedFromScaleIn = existingASG.NewInstancesProtectedFromScaleIn
 	{
 		mixedInstancesPolicy := machinePoolScope.AWSMachinePool.Spec.MixedInstancesPolicy
 		// InstancesDistribution is optional, and the default values come from AWS, so

@@ -101,6 +101,10 @@ type AWSMachinePoolSpec struct {
 	// SuspendProcesses defines a list of processes to suspend for the given ASG. This is constantly reconciled.
 	// If a process is removed from this list it will automatically be resumed.
 	SuspendProcesses *SuspendProcessesTypes `json:"suspendProcesses,omitempty"`
+
+	// Enable or disable instance scale-in protection
+	// +optional
+	NewInstancesProtectedFromScaleIn bool `json:"newInstancesProtectedFromScaleIn,omitempty"`
 }
 
 // SuspendProcessesTypes contains user friendly auto-completable values for suspended process names.
